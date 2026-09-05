@@ -1,0 +1,6 @@
+{
+  "project_name": "Security-Hardened Kubernetes Platform",
+  "company": "FinServ Digital",
+  "compliance": ["PCI-DSS-v4.0", "RBI-Cybersecurity-Framework"],
+  "version": "1.0.0"
+}
