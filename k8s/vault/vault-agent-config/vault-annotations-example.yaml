@@ -1,0 +1,11 @@
+# Vault Agent Sidecar injection annotations for Pod templates
+metadata:
+  annotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "payments-processor-role"
+    vault.hashicorp.com/agent-inject-secret-database-config.txt: "secret/data/payments/db"
+    vault.hashicorp.com/agent-inject-template-database-config.txt: |
+      {{- with secret "secret/data/payments/db" -}}
+      DB_USER={{ .Data.data.username }}
+      DB_PASS={{ .Data.data.password }}
+      {{- end -}}
