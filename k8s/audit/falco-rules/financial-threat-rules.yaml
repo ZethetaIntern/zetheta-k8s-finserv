@@ -1,0 +1,20 @@
+- rule: Unauthorized Interactive Shell in Payments Container
+  desc: Detects interactive shell execution inside payments domain pods
+  condition: >
+    container.name in (payment-gateway, transaction-processor, settlement-engine)
+    and spawned_process
+    and proc.name in (bash, sh, zsh, ksh, dash)
+  output: "CRITICAL: Interactive shell spawned in restricted payment pod (pod=%k8s.pod.name ns=%k8s.ns.name process=%proc.name user=%user.name)"
+  priority: CRITICAL
+  tags: [pci-dss, financial-security, execution]
+
+- rule: Potential Data Exfiltration via External Network Connection
+  desc: Detects payments pods opening network connections to unauthorized IPs
+  condition: >
+    k8s.ns.name = "prod-payments"
+    and outbound
+    and not (fd.sip in (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16))
+    and fd.sport != 53
+  output: "WARNING: Outbound connection to external IP initiated from payments pod (pod=%k8s.pod.name dest_ip=%fd.rip port=%fd.rport)"
+  priority: WARNING
+  tags: [pci-dss, network, exfiltration]
