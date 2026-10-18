@@ -282,7 +282,6 @@ Built to explore secure, cloud-native infrastructure for financial services work
 
 
 
-# FinServ Digital - Hardened Kubernetes Platform
 
 Production-grade Kubernetes platform for 20 financial microservices satisfying RBI regulations and PCI-DSS Level 1 audit standards.
 
